@@ -12,8 +12,8 @@ export default function Home() {
         <title>Ignite - Call</title>
       </Head>
       <main>
-        <div className="w-full h-screen gap-10 flex flex-col items-center justify-center lg:flex-row lg:flex lg:justify-between lg:items-center">
-          <div className="lg:ml-32 flex flex-col gap-8 lg:mr-3 max-lg:w-full max-lg:px-8">
+        <div className="w-full my-max-width ml-auto h-screen gap-10 flex flex-col items-center justify-center lg:flex-row lg:flex lg:justify-between lg:items-center">
+          <div className="flex flex-col gap-8 max-xl:ml-3 max-lg:w-full max-lg:px-8">
             <h1 className="text-6xl font-roboto font-extrabold max-sm:text-3xl">
               Agendamento descomplicado
             </h1>
@@ -29,7 +29,13 @@ export default function Home() {
           </div>
 
           <div className="w-full flex justify-end max-lg:pl-8">
-            <Image src={appImg} alt="app calendario" width={1000} />
+            <Image
+              src={appImg}
+              alt="app calendario"
+              height={400}
+              quality={100}
+              priority
+            />
           </div>
         </div>
       </main>

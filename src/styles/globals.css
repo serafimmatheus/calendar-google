@@ -26,3 +26,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.my-max-width {
+  max-width: calc(100vw - (100vw - 1160px) / 2);
+}
