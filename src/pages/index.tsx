@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import appImg from "src/assets/app-main.png";
 import Head from "next/head";
+import ClaimUsernameForm from "@/components/claimUsernameForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +23,7 @@ export default function Home() {
               agendamentos no seu tempo livre.
             </p>
 
-            <button className="bg-red-500 rounded-lg w-56 p-2 flex justify-center gap-2 hover:bg-red-400 transition-colors">
-              <i>G</i>
-              Entrar com o google
-            </button>
+            <ClaimUsernameForm />
           </div>
 
           <div className="w-full flex justify-end max-lg:pl-8">
