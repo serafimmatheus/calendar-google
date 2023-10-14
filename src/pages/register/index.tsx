@@ -71,7 +71,11 @@ export default function Register() {
     if (router.query.username) {
       setValue("username", `${router.query.username}`);
     }
-  }, [router.query?.username, setValue]);
+
+    if (session.status === "authenticated") {
+      router.push(`/schedule/${session.data?.user.username}`);
+    }
+  }, [router.query?.username, setValue, session.status]);
 
   return (
     <div className="max-w-xl mx-auto px-2 flex flex-col justify-center h-screen">

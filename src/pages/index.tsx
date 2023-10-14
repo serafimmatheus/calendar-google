@@ -1,12 +1,21 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import appImg from "src/assets/app-main.png";
 import Head from "next/head";
 import ClaimUsernameForm from "@/components/claimUsernameForm";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const router = useRouter();
+  const session = useSession();
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.push(`/schedule/${session.data?.user.username}`);
+    }
+  }, [session.status]);
+
   return (
     <>
       <Head>
