@@ -1,19 +1,10 @@
 import { MultStap } from "@/components/multStep";
-import { api } from "@/lib/axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { LuArrowRight } from "react-icons/lu";
 import { BsCheckSquare } from "react-icons/bs";
-import { parseCookies } from "nookies";
-
-interface IPropsRegisterFormSchema {
-  username: string;
-  name: string;
-}
 
 export default function ConnectGoogleCalendar() {
-  const cookies = parseCookies();
   const router = useRouter();
   const session = useSession();
   const hasAuthError = !!router.query.error;
@@ -84,7 +75,7 @@ export default function ConnectGoogleCalendar() {
           onClick={handleNextStep}
           disabled={session.status !== "authenticated"}
         >
-          "Próximo passo
+          Próximo passo
           <LuArrowRight />
         </button>
       </form>

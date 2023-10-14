@@ -1,6 +1,6 @@
 import { MultStap } from "@/components/multStep";
 import { api } from "@/lib/axios";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LuArrowRight } from "react-icons/lu";
@@ -9,7 +9,6 @@ import { parseCookies } from "nookies";
 import { useFieldArray, useForm } from "react-hook-form";
 import { getWeekDays } from "@/utils/get-week-days";
 import { z } from "zod";
-import { type } from "os";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { convertTimeStringToMinutes } from "@/utils/convert-time-string-to-minutes";
 
@@ -54,10 +53,8 @@ type TimeIntervalsDataInput = z.input<typeof schemaTimeIntervarls>;
 type TimeIntervalsDataOutput = z.output<typeof schemaTimeIntervarls>;
 
 export default function TimeIntervals() {
-  const cookies = parseCookies();
   const router = useRouter();
   const session = useSession();
-  const hasAuthError = !!router.query.error;
 
   const {
     register,
@@ -172,7 +169,7 @@ export default function TimeIntervals() {
           type="submit"
           disabled={isSubmitting}
         >
-          "Próximo passo
+          Próximo passo
           <LuArrowRight />
         </button>
       </form>
