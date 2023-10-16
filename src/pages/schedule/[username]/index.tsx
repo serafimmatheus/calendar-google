@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { ScheduleForm } from "./scheduleForm/confirmStep";
+import { ScheduleForm } from "./scheduleForm";
 
 interface IPropsUser {
   user: {

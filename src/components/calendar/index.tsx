@@ -33,51 +33,16 @@ export function Calendar() {
           </tr>
         </thead>
 
-        <tbody className="flex flex-col w-full gap-4">
-          <tr className="flex w-full justify-between gap-5">
+        <tbody className="flex flex-col">
+          <tr className="flex  gap-8">
             {Array.from({ length: 7 }).map((_, index) => (
-              <td
-                onClick={() => handleDays(index + 1)}
-                className="flex w-full h-16 cursor-pointer bg-gray-800 rounded-md justify-center items-center"
-                key={index}
-              >
-                {index + 1}
-              </td>
-            ))}
-          </tr>
-
-          <tr className="flex w-full justify-between gap-5">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <td
-                onClick={() => handleDays(index + 1)}
-                className="flex w-full h-16 cursor-pointer bg-gray-800 rounded-md justify-center items-center"
-                key={index}
-              >
-                {index + 8}
-              </td>
-            ))}
-          </tr>
-
-          <tr className="flex w-full justify-between gap-5">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <td
-                onClick={() => handleDays(index + 1)}
-                className="flex w-full h-16 cursor-pointer bg-gray-800 rounded-md justify-center items-center"
-                key={index}
-              >
-                {index + 15}
-              </td>
-            ))}
-          </tr>
-
-          <tr className="flex w-full justify-between gap-5">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <td
-                onClick={() => handleDays(index + 1)}
-                className="flex w-full h-16 cursor-pointer bg-gray-800 rounded-md justify-center items-center"
-                key={index}
-              >
-                {index + 22}
+              <td className="w-full" key={index}>
+                <button
+                  className="flex disabled:bg-gray-800 disabled:text-gray-600 w-full aspect-square cursor-pointer bg-gray-600 rounded-md justify-center items-center"
+                  onClick={() => handleDays(index + 1)}
+                >
+                  {index + 1}
+                </button>
               </td>
             ))}
           </tr>
