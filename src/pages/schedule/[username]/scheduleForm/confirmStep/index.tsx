@@ -1,4 +1,7 @@
+import { api } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { MdOutlineWatchLater } from "react-icons/md";
@@ -7,12 +10,20 @@ import { z } from "zod";
 const schema = z.object({
   name: z.string().min(3, { message: "Mínimo 3 caracteres" }),
   email: z.string().email({ message: "E-mail inválido" }),
-  observations: z.string().optional(),
+  observation: z.string().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
 
-export function ConfirmStep() {
+interface ConfirmStepProps {
+  schedulingDate: Date;
+  handleClearSelectedDateTime: () => void;
+}
+
+export function ConfirmStep({
+  schedulingDate,
+  handleClearSelectedDateTime,
+}: ConfirmStepProps) {
   const {
     handleSubmit,
     register,
@@ -21,8 +32,27 @@ export function ConfirmStep() {
     resolver: zodResolver(schema),
   });
 
+  const router = useRouter();
+
+  const { username } = router.query;
+
+  const describeDate = dayjs(schedulingDate).format("DD[ de ]MMMM[ de ] YYYY");
+  const describeTime = dayjs(schedulingDate).format("HH:mm");
+
   async function handleConfirmStep(data: FormData) {
-    console.log(data);
+    await api
+      .post(`/users/${username}/scheduling`, {
+        name: data.name,
+        email: data.email,
+        observation: data.observation,
+        date: schedulingDate,
+      })
+      .then((res) => {
+        handleClearSelectedDateTime();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -30,12 +60,12 @@ export function ConfirmStep() {
       <header className="flex w-full gap-8 border-b border-gray-600 p-6">
         <div className="flex items-center gap-2 ">
           <AiOutlineCalendar class="text-gray-400" size={20} />
-          <p className="text-gray-300 text-base">22 de Setembro de 2023</p>
+          <p className="text-gray-300 text-base">{describeDate}</p>
         </div>
 
         <div className="flex items-center gap-2 ">
           <MdOutlineWatchLater class="text-gray-400" size={20} />
-          <p className="text-gray-300 text-base">18:00h</p>
+          <p className="text-gray-300 text-base">{describeTime}</p>
         </div>
       </header>
 
@@ -74,12 +104,16 @@ export function ConfirmStep() {
             className={`placeholder:text-gray-600 p-2 h-20 resize-none rounded-lg outline-none bg-gray-950 px-4 mb-2`}
             prefix="cal.com/"
             placeholder="Observações"
-            {...register("observations")}
+            {...register("observation")}
           />
         </label>
 
         <footer className="flex justify-end py-6">
-          <button type="button" className="py-3 px-6">
+          <button
+            onClick={handleClearSelectedDateTime}
+            type="button"
+            className="py-3 px-6"
+          >
             Cancelar
           </button>
           <button

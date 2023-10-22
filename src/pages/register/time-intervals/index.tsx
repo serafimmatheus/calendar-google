@@ -11,6 +11,7 @@ import { getWeekDays } from "@/utils/get-week-days";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { convertTimeStringToMinutes } from "@/utils/convert-time-string-to-minutes";
+import { NextSeo } from "next-seo";
 
 const schemaTimeIntervarls = z.object({
   intervals: z
@@ -100,79 +101,88 @@ export default function TimeIntervals() {
   }, [session.status]);
 
   return (
-    <div className="max-w-xl mx-auto px-2 flex flex-col justify-center h-screen">
-      <header className="px-2">
-        <h2 className="text-4xl text-gray-300 font-roboto font-bold mb-4">
-          Quase lá
-        </h2>
+    <>
+      <NextSeo
+        title="Selecione sua disponibilidade | Ignite Call"
+        description="Defina o intervalo de horários que você está disponível em cada dia
+        da semana."
+        noindex
+      />
 
-        <p className="font-roboto text-sm text-gray-400 mb-6">
-          Defina o intervalo de horários que você está disponível em cada dia da
-          semana.
-        </p>
-      </header>
+      <div className="max-w-xl mx-auto px-2 flex flex-col justify-center h-screen">
+        <header className="px-2">
+          <h2 className="text-4xl text-gray-300 font-roboto font-bold mb-4">
+            Quase lá
+          </h2>
 
-      <MultStap size={4} currentStep={3} />
+          <p className="font-roboto text-sm text-gray-400 mb-6">
+            Defina o intervalo de horários que você está disponível em cada dia
+            da semana.
+          </p>
+        </header>
 
-      <form
-        onSubmit={handleSubmit(handleSetTImeIntervals)}
-        className="bg-gray-900 p-4 rounded-lg flex flex-col gap-5"
-      >
-        {fields.map((field, index) => {
-          return (
-            <div key={field.id} className="segunda">
-              <div className="flex items-center justify-between py-4 rounded-md px-6 border border-gray-600">
-                <label className="flex gap-2">
-                  <input
-                    className="w-6 h-6 text-green-400 border rounded focus:ring-2 focus:ring-green-400"
-                    type="checkbox"
-                    {...register(`intervals.${index}.enabled`)}
-                  />
-                  <p>{weekDays[field.weekDay]}</p>
-                </label>
+        <MultStap size={4} currentStep={3} />
 
-                <div className="flex gap-4">
-                  <input
-                    {...register(`intervals.${index}.start`)}
-                    type="time"
-                    className={`bg-gray-950 w-32 h-10 px-4 ${
-                      intervals[index].enabled === false
-                        ? "placeholder:text-gray-600"
-                        : ""
-                    }}`}
-                    disabled={intervals[index].enabled === false}
-                  />
-                  <input
-                    {...register(`intervals.${index}.end`)}
-                    type="time"
-                    className="bg-gray-950 w-32 h-10 px-4"
-                    disabled={intervals[index].enabled === false}
-                  />
+        <form
+          onSubmit={handleSubmit(handleSetTImeIntervals)}
+          className="bg-gray-900 p-4 rounded-lg flex flex-col gap-5"
+        >
+          {fields.map((field, index) => {
+            return (
+              <div key={field.id} className="segunda">
+                <div className="flex items-center justify-between py-4 rounded-md px-6 border border-gray-600">
+                  <label className="flex gap-2">
+                    <input
+                      className="w-6 h-6 text-green-400 border rounded focus:ring-2 focus:ring-green-400"
+                      type="checkbox"
+                      {...register(`intervals.${index}.enabled`)}
+                    />
+                    <p>{weekDays[field.weekDay]}</p>
+                  </label>
+
+                  <div className="flex gap-4">
+                    <input
+                      {...register(`intervals.${index}.start`)}
+                      type="time"
+                      className={`bg-gray-950 w-32 h-10 px-4 ${
+                        intervals[index].enabled === false
+                          ? "placeholder:text-gray-600"
+                          : ""
+                      }}`}
+                      disabled={intervals[index].enabled === false}
+                    />
+                    <input
+                      {...register(`intervals.${index}.end`)}
+                      type="time"
+                      className="bg-gray-950 w-32 h-10 px-4"
+                      disabled={intervals[index].enabled === false}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
 
-        {errors.intervals?.message && (
-          <p className="flex text-red-400 text-sm">
-            {errors.intervals.message}
-          </p>
-        )}
+          {errors.intervals?.message && (
+            <p className="flex text-red-400 text-sm">
+              {errors.intervals.message}
+            </p>
+          )}
 
-        <button
-          className={`flex items-center justify-center h-10 rounded-lg gap-4 text-base transition-colors ${
-            session.status === "authenticated"
-              ? "border border-green-600 hover:bg-green-400 text-white bg-green-600"
-              : "bg-gray-600 hover:bg-gray-500"
-          }`}
-          type="submit"
-          disabled={isSubmitting}
-        >
-          Próximo passo
-          <LuArrowRight />
-        </button>
-      </form>
-    </div>
+          <button
+            className={`flex items-center justify-center h-10 rounded-lg gap-4 text-base transition-colors ${
+              session.status === "authenticated"
+                ? "border border-green-600 hover:bg-green-400 text-white bg-green-600"
+                : "bg-gray-600 hover:bg-gray-500"
+            }`}
+            type="submit"
+            disabled={isSubmitting}
+          >
+            Próximo passo
+            <LuArrowRight />
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
