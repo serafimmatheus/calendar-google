@@ -20,7 +20,7 @@ interface ConfirmStepProps {
   handleClearSelectedDateTime: () => void;
 }
 
-export function ConfirmStep({
+export default function ConfirmStep({
   schedulingDate,
   handleClearSelectedDateTime,
 }: ConfirmStepProps) {

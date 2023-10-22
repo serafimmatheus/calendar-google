@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { ScheduleForm } from "./scheduleForm";
+import ScheduleForm from "./scheduleForm";
 import { NextSeo } from "next-seo";
 
 interface IPropsUser {
