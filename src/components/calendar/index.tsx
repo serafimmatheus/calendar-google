@@ -131,7 +131,7 @@ export function Calendar({ selecedDate, onDateSelected }: CalendarIProps) {
   }, [currentDate, blokedDates]);
 
   return (
-    <div className="container bg-gray-900 h-[600px] relative rounded-md p-3">
+    <div className="container bg-gray-900 h-[601px] relative rounded-md p-3">
       <header className="header flex justify-between my-5">
         <h1 className="calendar-tile capitalize">
           {currentMonth} <span className="ml-3">{currentYear}</span>
