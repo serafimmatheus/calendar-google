@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuArrowRight } from "react-icons/lu";
 import { z } from "zod";
-import { parseCookies } from "nookies";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 
@@ -29,10 +28,8 @@ export default function Register() {
       .transform((username) => username.toLowerCase()),
   });
 
-  const [formStateStaps, setFormStateStaps] = useState(1);
   const [errorRegister, setErrorRegister] = useState(false);
 
-  const cookies = parseCookies();
   const router = useRouter();
   const session = useSession();
 
@@ -45,27 +42,18 @@ export default function Register() {
     resolver: zodResolver(registerFormSchema),
   });
 
-  function handleNextStep(e: any) {
-    e.preventDefault();
-  }
-
   async function handlePreRegister(data: IPropsRegisterFormSchema) {
-    if (formStateStaps === 4) return console.log("finalizado");
-
-    // setFormStateStaps(formStateStaps + 1);
-    if (formStateStaps === 1) {
-      await api
-        .post("/users", {
-          username: data.username,
-          name: data.name,
-        })
-        .then((response) => {
-          router.push(`/register/connect-google-calendar`);
-        })
-        .catch((err) => {
-          setErrorRegister(true);
-        });
-    }
+    await api
+      .post("/users", {
+        username: data.username,
+        name: data.name,
+      })
+      .then((response) => {
+        router.push(`/register/connect-google-calendar`);
+      })
+      .catch((err) => {
+        setErrorRegister(true);
+      });
   }
 
   useEffect(() => {
@@ -76,7 +64,7 @@ export default function Register() {
     if (session.status === "authenticated") {
       router.push(`/schedule/${session.data?.user.username}`);
     }
-  }, [router.query?.username, setValue, session.status]);
+  }, [router.query?.username, setValue]);
 
   return (
     <>
@@ -148,7 +136,7 @@ export default function Register() {
             disabled={isSubmitting}
             type="submit"
           >
-            {formStateStaps === 4 ? "Finalizar" : "Próximo passo "}
+            Próximo passo
             <LuArrowRight />
           </button>
         </form>

@@ -98,7 +98,7 @@ export default function TimeIntervals() {
     if (session.status === "unauthenticated") {
       router.push("/");
     }
-  }, [session.status]);
+  }, []);
 
   return (
     <>

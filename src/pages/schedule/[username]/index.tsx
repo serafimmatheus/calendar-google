@@ -47,7 +47,7 @@ export default function Schedule() {
     }
 
     handleGetUser();
-  }, [session.status]);
+  }, []);
 
   return (
     <>

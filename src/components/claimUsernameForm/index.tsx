@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { error } from "console";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { LuArrowRight } from "react-icons/lu";

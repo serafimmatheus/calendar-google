@@ -46,7 +46,7 @@ export default function UpdateProfile() {
     if (session.status === "unauthenticated") {
       router.push("/");
     }
-  }, [session.status]);
+  }, []);
 
   return (
     <>

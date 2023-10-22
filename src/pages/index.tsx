@@ -1,6 +1,5 @@
 import Image from "next/image";
 import appImg from "src/assets/app-main.png";
-import Head from "next/head";
 import ClaimUsernameForm from "@/components/claimUsernameForm";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -15,7 +14,7 @@ export default function Home() {
     if (session.status === "authenticated") {
       router.push(`/schedule/${session.data?.user.username}`);
     }
-  }, [session.status]);
+  }, []);
 
   return (
     <>
